@@ -30,8 +30,18 @@ De applicatie bestaat uit de volgende modulaire structuur:
 ### `text_to_3d.py`
 **Functionaliteit**: Converteert tekst naar 3D-modellen
 - **Functies**:
-  - `generate_3d_model(text)`: Genereert een 3D-model van de opgegeven tekst
-    - Parameters: text (str) - De tekst die naar 3D geconverteerd moet worden
+  - `generate_3d_model(text, font, color, bevel_color, thickness, position, bevel_enabled, bevel_thickness, bevel_size, bevel_segments)`: Genereert een 3D-model van de opgegeven tekst
+    - Parameters: 
+      - text (str) - De tekst die naar 3D geconverteerd moet worden
+      - font (str) - Het lettertype ('helvetiker', 'optimer', 'gentilis', 'droid', 'opensans', 'roboto')
+      - color (str) - De kleur van het model in hex
+      - bevel_color (str, optional) - De kleur van de randen
+      - thickness (float) - De dikte van het model
+      - position (dict, optional) - Positie {x, y, z}
+      - bevel_enabled (bool) - Of randen afgerond zijn
+      - bevel_thickness (float) - Dikte van de afgeronde rand
+      - bevel_size (float) - Grootte van de afgeronde rand
+      - bevel_segments (int) - Aantal segmenten in de afgeronde rand
     - Return: 3D-modelgegevens (JSON/dict)
     - Afhankelijkheden: Three.js compatibel formaat
 
@@ -42,6 +52,10 @@ De applicatie bestaat uit de volgende modulaire structuur:
     - Parameters: Geen
     - Return: Scene object
     - Afhankelijkheden: Three.js
+  - `loadFont(fontName)`: Laadt een lettertype en cacht het
+    - Parameters: fontName (str) - Naam van het lettertype
+    - Return: Promise met het geladen lettertype
+    - Afhankelijkheden: Three.js FontLoader
   - `renderText(textData)`: Rendert het 3D-tekstmodel
     - Parameters: textData (object) - 3D-modelgegevens
     - Return: None
@@ -50,16 +64,23 @@ De applicatie bestaat uit de volgende modulaire structuur:
     - Parameters: Geen
     - Return: None
     - Afhankelijkheden: Three.js
+  - `applyColorScheme(schemeName)`: Past een voorgedefinieerd kleurenschema toe
+    - Parameters: schemeName (str) - Naam van het kleurenschema
+    - Return: None
+    - Afhankelijkheden: HTML DOM elementen
 
 ### `templates/index.html`
 **Functionaliteit**: Hoofdpagina HTML-template
 - Bevat de structuur voor de webinterface
 - Inclusief formulier voor tekstinvoer
 - Container voor 3D-weergave
+- UI voor geavanceerde instellingen (lettertype, kleuren, dikte, bevel parameters)
 
 ### `static/css/style.css`
 **Functionaliteit**: Styling voor de webinterface
 - Stijlregels voor de gebruikersinterface
+- Responsive design
+- Styling voor geavanceerde UI-elementen en controls
 
 ### `requirements.txt`
 **Functionaliteit**: Lijst met Python-afhankelijkheden voor het project
@@ -70,22 +91,25 @@ De applicatie bestaat uit de volgende modulaire structuur:
 - Flask-webserver met basisroutes geïmplementeerd
 - Basis 3D-renderer met Three.js geïmplementeerd
 - Basis UI met formulier voor tekstinvoer
+- Geavanceerde 3D-tekstgeneratie features (Issue #3)
+  - Ondersteuning voor verschillende lettertypen
+  - Kleurconfiguratie voor 3D-tekst
+  - Dikte-instellingen
+  - Aparte kleuren voor tekstlichaam en randen
+  - Bevel (afgeronde randen) instellingen
 
 **Open**:
-- Geavanceerde 3D-tekstgeneratie features (Issue #2)
 - Testen en optimalisatie
 
 ## 5. Volgende stappen
 
-### Must Haves:
-1. Implementeer geavanceerde 3D tekstgeneratie functionaliteit (Issue #2)
-   - Ondersteuning voor verschillende lettertypen
-   - Kleurconfiguratie voor 3D-tekst
-   - Dikte-instellingen
-
 ### Nice to Haves:
-1. Verschillende lettertypen toevoegen
-2. Kleuropties voor de 3D-tekst
-3. Verschillende rotatiepatronen en snelheden
-4. Mogelijkheid om het 3D-model te exporteren
-5. Verschillende achtergrondopties/thema's
+1. Verschillende rotatiepatronen en snelheden
+2. Mogelijkheid om het 3D-model te exporteren
+3. Verschillende achtergrondopties/thema's
+4. Testdekking verbeteren
+5. Betere foutafhandeling
+6. Optimalisatie voor grote tekststrings
+7. Mobile responsive verbeteringen
+
+Alle must-have functionaliteiten voor de basiswerking van de applicatie zijn nu geïmplementeerd. De bovenstaande punten zijn verbeteringen en uitbreidingen die de applicatie verder kunnen verbeteren, maar zijn niet strikt noodzakelijk voor het functioneren van de kern van de applicatie.
