@@ -40,18 +40,43 @@ h1 {
     margin-bottom: 15px;
 }
 
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
 label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
-input[type="text"] {
+input[type="text"],
+select {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
+}
+
+input[type="color"] {
+    width: 100%;
+    height: 40px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="range"] {
+    width: 100%;
+    margin-top: 5px;
 }
 
 button {
@@ -81,6 +106,13 @@ button:hover {
     align-items: center;
 }
 
+/* Tooltip voor dikte slider */
+#thickness-value {
+    display: inline-block;
+    min-width: 2.5em;
+    text-align: center;
+}
+
 /* Responsive aanpassingen */
 @media (max-width: 768px) {
     .container {
@@ -90,6 +122,11 @@ button:hover {
     .input-form,
     .visualization-container {
         padding: 15px;
+    }
+    
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
     }
     
     canvas {
