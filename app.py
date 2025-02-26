@@ -17,8 +17,15 @@ def generate():
     text = data.get('text', '')
     font = data.get('font', 'helvetiker')
     color = data.get('color', '0x156289')
+    bevel_color = data.get('bevelColor')  # Kan None zijn
     thickness = data.get('thickness', 0.2)
     position = data.get('position', None)
+    
+    # Haal bevel parameters uit het request
+    bevel_enabled = data.get('bevelEnabled', True)
+    bevel_thickness = data.get('bevelThickness', 0.03)
+    bevel_size = data.get('bevelSize', 0.02)
+    bevel_segments = data.get('bevelSegments', 5)
     
     if not text:
         return jsonify({'error': 'Geen tekst opgegeven'}), 400
@@ -28,8 +35,13 @@ def generate():
         text=text,
         font=font,
         color=color,
+        bevel_color=bevel_color,
         thickness=thickness,
-        position=position
+        position=position,
+        bevel_enabled=bevel_enabled,
+        bevel_thickness=bevel_thickness,
+        bevel_size=bevel_size,
+        bevel_segments=bevel_segments
     )
     
     return jsonify({'model_data': model_data})
