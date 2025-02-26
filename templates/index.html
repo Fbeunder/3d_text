@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Text Visualizer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Three.js via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>3D Text Visualizer</h1>
+        
+        <div class="input-form">
+            <form id="text-form">
+                <div class="form-group">
+                    <label for="text-input">Voer tekst in:</label>
+                    <input type="text" id="text-input" name="text" placeholder="Typ hier je naam of tekst" required>
+                </div>
+                <button type="submit" id="generate-btn">Genereer 3D Text</button>
+            </form>
+        </div>
+        
+        <div id="3d-container" class="visualization-container">
+            <!-- Hier komt de 3D visualisatie -->
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/3d_renderer.js') }}"></script>
+    <script>
+        document.getElementById('text-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const text = document.getElementById('text-input').value;
+            
+            // Verstuur de tekst naar de server om 3D model data te krijgen
+            fetch('/generate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Geef de model data door aan de renderer
+                if (data.model_data) {
+                    renderText(data.model_data);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
