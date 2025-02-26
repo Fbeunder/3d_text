@@ -2,7 +2,7 @@
 Module voor het converteren van tekst naar 3D modellen
 """
 
-def generate_3d_model(text, font='helvetiker', color='0x156289', bevel_color=None, thickness=0.2, position=None, bevel_enabled=True, bevel_thickness=0.03, bevel_size=0.02, bevel_segments=5):
+def generate_3d_model(text, font='helvetiker', color='0x156289', bevel_color=None, thickness=0.2, position=None, bevel_enabled=True, bevel_thickness=0.03, bevel_size=0.02, bevel_segments=5, rotation_pattern='horizontal', rotation_speed='normal'):
     """
     Genereert een 3D model van de opgegeven tekst met geavanceerde opties.
     
@@ -17,6 +17,8 @@ def generate_3d_model(text, font='helvetiker', color='0x156289', bevel_color=Non
         bevel_thickness (float): De dikte van de bevel
         bevel_size (float): De grootte van de bevel
         bevel_segments (int): Het aantal segmenten in de bevel
+        rotation_pattern (str): Het rotatiepatroon ('horizontal', 'vertical', 'diagonal', 'oscillating', 'breathing', 'combined')
+        rotation_speed (str): De rotatiesnelheid ('slow', 'normal', 'fast', of een numerieke waarde)
         
     Returns:
         dict: Een dictionary met de 3D modelgegevens in een Three.js compatibel formaat
@@ -74,6 +76,25 @@ def generate_3d_model(text, font='helvetiker', color='0x156289', bevel_color=Non
     except (ValueError, TypeError):
         bevel_segments = 5
     
+    # Valideer rotatiepatroon
+    available_patterns = ['horizontal', 'vertical', 'diagonal', 'oscillating', 'breathing', 'combined']
+    if rotation_pattern not in available_patterns:
+        rotation_pattern = 'horizontal'
+    
+    # Valideer rotatiesnelheid
+    available_speeds = ['slow', 'normal', 'fast']
+    if rotation_speed not in available_speeds:
+        try:
+            # Probeer te converteren naar een float als het een aangepaste snelheid is
+            float_speed = float(rotation_speed)
+            # Begrens de aangepaste snelheid tussen 0.1 en 5.0
+            if float_speed < 0.1 or float_speed > 5.0:
+                rotation_speed = 'normal'
+            else:
+                rotation_speed = str(float_speed)
+        except (ValueError, TypeError):
+            rotation_speed = 'normal'
+    
     # Standaardpositie als er geen is opgegeven
     if not position or not isinstance(position, dict):
         position = {'x': 0, 'y': 0, 'z': 0}
@@ -92,7 +113,9 @@ def generate_3d_model(text, font='helvetiker', color='0x156289', bevel_color=Non
         'bevelSegments': bevel_segments,
         'color': color,
         'bevelColor': bevel_color,
-        'position': position
+        'position': position,
+        'rotationPattern': rotation_pattern,
+        'rotationSpeed': rotation_speed
     }
     
     return model_data
