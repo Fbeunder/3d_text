@@ -1,0 +1,84 @@
+# 3D Text Applicatie
+
+## 1. Projectoverzicht
+Deze applicatie maakt het mogelijk om een opgegeven naam of tekst als een 3D-model weer te geven en dit langzaam te laten ronddraaien in een webinterface. Het doel is een interactieve en visueel aantrekkelijke manier te bieden om text-to-3D visualisatie te tonen.
+
+## 2. Architectuur
+De applicatie bestaat uit de volgende modulaire structuur:
+- Backend (Python/Flask)
+- Frontend (HTML/JavaScript/CSS)
+- 3D-renderingsmodule
+
+## 3. Modules
+
+### `app.py`
+**Functionaliteit**: Hoofdapplicatie die de webserver start en de routes beheert
+- **Functies**:
+  - `start_server(host, port)`: Start de Flask-webserver
+    - Parameters: host (str) - hostadres, port (int) - poortnummer
+    - Return: None
+    - Afhankelijkheden: Flask
+  - `index()`: Rendert de hoofdpagina
+    - Parameters: Geen
+    - Return: Gerenderde HTML-template
+    - Afhankelijkheden: Flask render_template
+
+### `text_to_3d.py`
+**Functionaliteit**: Converteert tekst naar 3D-modellen
+- **Functies**:
+  - `generate_3d_model(text)`: Genereert een 3D-model van de opgegeven tekst
+    - Parameters: text (str) - De tekst die naar 3D geconverteerd moet worden
+    - Return: 3D-modelgegevens (JSON/dict)
+    - Afhankelijkheden: Three.js compatibel formaat
+
+### `static/js/3d_renderer.js`
+**Functionaliteit**: Client-side JavaScript voor 3D-rendering
+- **Functies**:
+  - `initScene()`: Initialiseert de 3D-scène
+    - Parameters: Geen
+    - Return: Scene object
+    - Afhankelijkheden: Three.js
+  - `renderText(textData)`: Rendert het 3D-tekstmodel
+    - Parameters: textData (object) - 3D-modelgegevens
+    - Return: None
+    - Afhankelijkheden: Three.js
+  - `animateRotation()`: Animeert de rotatie van het 3D-model
+    - Parameters: Geen
+    - Return: None
+    - Afhankelijkheden: Three.js
+
+### `templates/index.html`
+**Functionaliteit**: Hoofdpagina HTML-template
+- Bevat de structuur voor de webinterface
+- Inclusief formulier voor tekstinvoer
+- Container voor 3D-weergave
+
+### `static/css/style.css`
+**Functionaliteit**: Styling voor de webinterface
+- Stijlregels voor de gebruikersinterface
+
+### `requirements.txt`
+**Functionaliteit**: Lijst met Python-afhankelijkheden voor het project
+
+## 4. Status
+**Voltooid**:
+- Geen (nieuw project)
+
+**Open**:
+- Alle modules moeten nog geïmplementeerd worden
+
+## 5. Volgende stappen
+
+### Must Haves:
+1. Basisstructuur van het project opzetten
+2. Flask-webserver implementeren met basisroutes
+3. Formulier voor tekstinvoer implementeren
+4. 3D-tekstgeneratie implementeren
+5. Rotatiefunctionaliteit implementeren
+
+### Nice to Haves:
+1. Verschillende lettertypen toevoegen
+2. Kleuropties voor de 3D-tekst
+3. Verschillende rotatiepatronen en snelheden
+4. Mogelijkheid om het 3D-model te exporteren
+5. Verschillende achtergrondopties/thema's
