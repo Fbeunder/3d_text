@@ -66,6 +66,51 @@
                     <input type="range" id="thickness-slider" name="thickness" min="0.1" max="1.5" step="0.05" value="0.2">
                 </div>
                 
+                <!-- Nieuwe sectie voor rotatiepatronen -->
+                <div class="animation-options">
+                    <h3>Animatie Opties</h3>
+                    
+                    <div class="form-group">
+                        <label for="rotation-pattern">Rotatiepatroon:</label>
+                        <select id="rotation-pattern" name="rotationPattern">
+                            <option value="horizontal">Horizontaal draaien</option>
+                            <option value="vertical">Verticaal draaien</option>
+                            <option value="diagonal">Diagonaal draaien</option>
+                            <option value="oscillating">Heen en weer</option>
+                            <option value="breathing">Ademend</option>
+                            <option value="combined">Gecombineerd</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rotation-speed">Snelheid:</label>
+                        <div class="speed-options">
+                            <label class="radio-label">
+                                <input type="radio" name="rotationSpeed" value="slow" id="speed-slow">
+                                Langzaam
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="rotationSpeed" value="normal" id="speed-normal" checked>
+                                Normaal
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="rotationSpeed" value="fast" id="speed-fast">
+                                Snel
+                            </label>
+                        </div>
+                        
+                        <label for="custom-speed-checkbox" class="checkbox-label">
+                            <input type="checkbox" id="custom-speed-checkbox">
+                            Aangepaste snelheid
+                        </label>
+                        
+                        <div id="custom-speed-container" style="display: none;">
+                            <label for="custom-speed-slider">Snelheid: <span id="custom-speed-value">1.0</span></label>
+                            <input type="range" id="custom-speed-slider" min="0.1" max="5.0" step="0.1" value="1.0">
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="form-group">
                     <label for="bevel-enabled">
                         <input type="checkbox" id="bevel-enabled" name="bevelEnabled" checked>
@@ -127,6 +172,35 @@
             document.getElementById('bevel-segments-value').textContent = this.value;
         });
         
+        // Custom speed slider
+        document.getElementById('custom-speed-slider').addEventListener('input', function() {
+            document.getElementById('custom-speed-value').textContent = this.value;
+        });
+        
+        // Schakel aangepaste snelheid in/uit
+        document.getElementById('custom-speed-checkbox').addEventListener('change', function() {
+            const customSpeedContainer = document.getElementById('custom-speed-container');
+            customSpeedContainer.style.display = this.checked ? 'block' : 'none';
+            
+            // Deselecteer de radiobuttons als aangepaste snelheid is ingeschakeld
+            if (this.checked) {
+                document.getElementById('speed-slow').checked = false;
+                document.getElementById('speed-normal').checked = false;
+                document.getElementById('speed-fast').checked = false;
+            } else {
+                // Standaard op 'normal' zetten als aangepaste snelheid wordt uitgeschakeld
+                document.getElementById('speed-normal').checked = true;
+            }
+        });
+        
+        // Schakel aangepaste snelheid uit als een radiobutton wordt geselecteerd
+        document.querySelectorAll('input[name="rotationSpeed"]').forEach(function(radio) {
+            radio.addEventListener('change', function() {
+                document.getElementById('custom-speed-checkbox').checked = false;
+                document.getElementById('custom-speed-container').style.display = 'none';
+            });
+        });
+        
         // Schakel bevel-opties in/uit wanneer checkbox wordt ge(de)selecteerd
         document.getElementById('bevel-enabled').addEventListener('change', function() {
             const bevelOptions = document.getElementById('bevel-options');
@@ -163,6 +237,18 @@
             const bevelSize = parseFloat(document.getElementById('bevel-size-slider').value);
             const bevelSegments = parseInt(document.getElementById('bevel-segments-slider').value);
             
+            // Rotatie opties
+            const rotationPattern = document.getElementById('rotation-pattern').value;
+            
+            // Bepaal rotatiesnelheid (aangepast of preset)
+            let rotationSpeed;
+            if (document.getElementById('custom-speed-checkbox').checked) {
+                rotationSpeed = document.getElementById('custom-speed-slider').value;
+            } else {
+                const selectedSpeed = document.querySelector('input[name="rotationSpeed"]:checked');
+                rotationSpeed = selectedSpeed ? selectedSpeed.value : 'normal';
+            }
+            
             // Verstuur de gegevens naar de server om 3D model data te krijgen
             fetch('/generate', {
                 method: 'POST',
@@ -178,7 +264,9 @@
                     bevelEnabled: bevelEnabled,
                     bevelThickness: bevelThickness,
                     bevelSize: bevelSize,
-                    bevelSegments: bevelSegments
+                    bevelSegments: bevelSegments,
+                    rotationPattern: rotationPattern,
+                    rotationSpeed: rotationSpeed
                 })
             })
             .then(response => {
