@@ -27,6 +27,10 @@ def generate():
     bevel_size = data.get('bevelSize', 0.02)
     bevel_segments = data.get('bevelSegments', 5)
     
+    # Haal rotatie parameters uit het request
+    rotation_pattern = data.get('rotationPattern', 'horizontal')
+    rotation_speed = data.get('rotationSpeed', 'normal')
+    
     if not text:
         return jsonify({'error': 'Geen tekst opgegeven'}), 400
     
@@ -41,7 +45,9 @@ def generate():
         bevel_enabled=bevel_enabled,
         bevel_thickness=bevel_thickness,
         bevel_size=bevel_size,
-        bevel_segments=bevel_segments
+        bevel_segments=bevel_segments,
+        rotation_pattern=rotation_pattern,
+        rotation_speed=rotation_speed
     )
     
     return jsonify({'model_data': model_data})
