@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Text Visualizer</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <!-- Three.js via CDN -->
+    <!-- Three.js via CDN - specifiek versie r128 omdat we daarop gebaseerde FontLoader en TextGeometry gebruiken-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <!-- FontLoader en TextGeometry -->
+    <!-- FontLoader en TextGeometry - specifiek voor r128 -->
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/FontLoader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/geometries/TextGeometry.js"></script>
 </head>
@@ -101,8 +101,15 @@
         </div>
     </div>
 
+    <!-- Eerst de renderer script laden -->
     <script src="{{ url_for('static', filename='js/3d_renderer.js') }}"></script>
     <script>
+        // Initialiseer de scene wanneer het document is geladen
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiseer de scene om de renderer klaar te hebben
+            initScene();
+        });
+
         // Update de waardes wanneer sliders worden verplaatst
         document.getElementById('thickness-slider').addEventListener('input', function() {
             document.getElementById('thickness-value').textContent = this.value;
@@ -174,11 +181,19 @@
                     bevelSegments: bevelSegments
                 })
             })
-            .then(response => response.json())
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
             .then(data => {
                 // Geef de model data door aan de renderer
                 if (data.model_data) {
+                    console.log('Model data ontvangen:', data.model_data);
                     renderText(data.model_data);
+                } else {
+                    console.error('Geen model data ontvangen:', data);
                 }
             })
             .catch(error => {
