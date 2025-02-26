@@ -22,6 +22,10 @@ De applicatie bestaat uit de volgende modulaire structuur:
     - Parameters: Geen
     - Return: Gerenderde HTML-template
     - Afhankelijkheden: Flask render_template
+  - `generate()`: API endpoint voor 3D model generatie
+    - Parameters: Geen (haalt data uit request.get_json())
+    - Return: JSON met model_data
+    - Afhankelijkheden: Flask jsonify, text_to_3d.generate_3d_model
 
 ### `text_to_3d.py`
 **Functionaliteit**: Converteert tekst naar 3D-modellen
@@ -62,19 +66,22 @@ De applicatie bestaat uit de volgende modulaire structuur:
 
 ## 4. Status
 **Voltooid**:
-- Geen (nieuw project)
+- Basisstructuur van het project opgezet
+- Flask-webserver met basisroutes geïmplementeerd
+- Basis 3D-renderer met Three.js geïmplementeerd
+- Basis UI met formulier voor tekstinvoer
 
 **Open**:
-- Alle modules moeten nog geïmplementeerd worden
+- Geavanceerde 3D-tekstgeneratie features (Issue #2)
+- Testen en optimalisatie
 
 ## 5. Volgende stappen
 
 ### Must Haves:
-1. Basisstructuur van het project opzetten
-2. Flask-webserver implementeren met basisroutes
-3. Formulier voor tekstinvoer implementeren
-4. 3D-tekstgeneratie implementeren
-5. Rotatiefunctionaliteit implementeren
+1. Implementeer geavanceerde 3D tekstgeneratie functionaliteit (Issue #2)
+   - Ondersteuning voor verschillende lettertypen
+   - Kleurconfiguratie voor 3D-tekst
+   - Dikte-instellingen
 
 ### Nice to Haves:
 1. Verschillende lettertypen toevoegen
