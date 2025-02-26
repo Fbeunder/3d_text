@@ -10,15 +10,27 @@ def index():
 
 @app.route('/generate', methods=['POST'])
 def generate():
-    """API endpoint voor het genereren van 3D text modellen"""
+    """API endpoint voor het genereren van 3D text modellen met geavanceerde opties"""
     data = request.get_json()
+    
+    # Haal alle parameters uit het request
     text = data.get('text', '')
+    font = data.get('font', 'helvetiker')
+    color = data.get('color', '0x156289')
+    thickness = data.get('thickness', 0.2)
+    position = data.get('position', None)
     
     if not text:
         return jsonify({'error': 'Geen tekst opgegeven'}), 400
     
-    # Genereer 3D model data
-    model_data = text_to_3d.generate_3d_model(text)
+    # Genereer 3D model data met alle parameters
+    model_data = text_to_3d.generate_3d_model(
+        text=text,
+        font=font,
+        color=color,
+        thickness=thickness,
+        position=position
+    )
     
     return jsonify({'model_data': model_data})
 
