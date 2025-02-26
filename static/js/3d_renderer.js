@@ -5,6 +5,23 @@ let scene, camera, renderer;
 let textMesh;
 let fontLoader;
 let fonts = {};
+let currentAnimation = null; // Om de huidige animatie bij te houden
+let animationParams = {
+    pattern: 'horizontal',
+    speed: 'normal',
+    // Parameters voor specifieke animaties
+    oscillating: {
+        direction: 1,
+        angle: 0,
+        maxAngle: Math.PI / 6 // 30 graden
+    },
+    breathing: {
+        direction: 1,
+        scale: 1,
+        minScale: 0.9,
+        maxScale: 1.1
+    }
+};
 
 // Initialiseer de 3D scene
 function initScene() {
@@ -245,8 +262,26 @@ function renderText(textData) {
                 console.log('TextMesh toevoegen aan scene');
                 scene.add(textMesh);
                 
+                // Stel de nieuwe animatieparameters in
+                animationParams.pattern = textData.rotationPattern || 'horizontal';
+                animationParams.speed = textData.rotationSpeed || 'normal';
+                
+                // Reset specifieke animatieparameters
+                animationParams.oscillating = {
+                    direction: 1,
+                    angle: 0,
+                    maxAngle: Math.PI / 6
+                };
+                
+                animationParams.breathing = {
+                    direction: 1,
+                    scale: 1,
+                    minScale: 0.9,
+                    maxScale: 1.1
+                };
+                
                 // Start de animatie
-                console.log('Animatie starten');
+                console.log('Animatie starten met patroon:', animationParams.pattern, 'en snelheid:', animationParams.speed);
                 animateRotation();
             })
             .catch(error => {
@@ -257,7 +292,115 @@ function renderText(textData) {
     }
 }
 
-// Animeer de rotatie van het 3D model
+// Bereken de rotatiesnelheid op basis van de ingestelde snelheid
+function getRotationSpeed() {
+    const speedMapping = {
+        'slow': 0.005,
+        'normal': 0.01,
+        'fast': 0.02
+    };
+    
+    // Controleer of het een voorgedefinieerde snelheid is
+    if (animationParams.speed in speedMapping) {
+        return speedMapping[animationParams.speed];
+    }
+    
+    // Anders probeer het te converteren naar een getal (aangepaste snelheid)
+    try {
+        const customSpeed = parseFloat(animationParams.speed);
+        return 0.01 * customSpeed; // De standaardsnelheid vermenigvuldigen met de aangepaste factor
+    } catch (e) {
+        return 0.01; // Standaard bij fout
+    }
+}
+
+// Horizontale rotatie (draaien om Y-as)
+function animateHorizontalRotation() {
+    if (textMesh) {
+        textMesh.rotation.y += getRotationSpeed();
+    }
+}
+
+// Verticale rotatie (draaien om X-as)
+function animateVerticalRotation() {
+    if (textMesh) {
+        textMesh.rotation.x += getRotationSpeed();
+    }
+}
+
+// Diagonale rotatie (draaien om X-as én Y-as)
+function animateDiagonalRotation() {
+    if (textMesh) {
+        textMesh.rotation.x += getRotationSpeed() * 0.7;
+        textMesh.rotation.y += getRotationSpeed();
+    }
+}
+
+// Oscillerende rotatie (heen en weer)
+function animateOscillatingRotation() {
+    if (textMesh) {
+        const params = animationParams.oscillating;
+        const speed = getRotationSpeed() * 2; // Sneller voor betere zichtbaarheid
+        
+        // Update de hoek
+        params.angle += speed * params.direction;
+        
+        // Keer de richting om als de maximale hoek is bereikt
+        if (Math.abs(params.angle) >= params.maxAngle) {
+            params.direction *= -1;
+        }
+        
+        // Pas de rotatie toe
+        textMesh.rotation.y = params.angle;
+    }
+}
+
+// Ademende animatie (schalen)
+function animateBreathingEffect() {
+    if (textMesh) {
+        const params = animationParams.breathing;
+        const speed = getRotationSpeed() * 0.5; // Langzamer voor een rustiger effect
+        
+        // Update de schaal
+        params.scale += speed * params.direction;
+        
+        // Keer de richting om als de minimum of maximum schaal is bereikt
+        if (params.scale <= params.minScale || params.scale >= params.maxScale) {
+            params.direction *= -1;
+        }
+        
+        // Pas de schaal toe
+        textMesh.scale.set(params.scale, params.scale, params.scale);
+        
+        // Voeg langzame rotatie toe voor extra effect
+        textMesh.rotation.y += getRotationSpeed() * 0.2;
+    }
+}
+
+// Gecombineerde animatie (meerdere bewegingen)
+function animateCombinedEffects() {
+    if (textMesh) {
+        // Rotatie
+        textMesh.rotation.x += getRotationSpeed() * 0.3;
+        textMesh.rotation.y += getRotationSpeed() * 0.5;
+        textMesh.rotation.z += getRotationSpeed() * 0.1;
+        
+        // Lichte ademende beweging
+        const params = animationParams.breathing;
+        const speed = getRotationSpeed() * 0.2;
+        
+        params.scale += speed * params.direction;
+        if (params.scale <= params.minScale || params.scale >= params.maxScale) {
+            params.direction *= -1;
+        }
+        
+        // Minder extreme schaal voor gecombineerde beweging
+        const combinedScale = 1 + (params.scale - 1) * 0.5;
+        textMesh.scale.set(combinedScale, combinedScale, combinedScale);
+    }
+}
+
+// Animeer de rotatie van het 3D model op basis van het geselecteerde patroon
 function animateRotation() {
     // Controleer of we de nodige drie.js componenten hebben
     if (!scene || !camera || !renderer) {
@@ -265,13 +408,37 @@ function animateRotation() {
         return;
     }
     
+    // Stop de vorige animatie als die er is
+    if (currentAnimation) {
+        cancelAnimationFrame(currentAnimation);
+        currentAnimation = null;
+    }
+    
     // Animatieloop
     function animate() {
-        requestAnimationFrame(animate);
+        currentAnimation = requestAnimationFrame(animate);
         
-        // Roteer de tekst langzaam
-        if (textMesh) {
-            textMesh.rotation.y += 0.01;
+        // Kies de juiste animatiefunctie op basis van het patroon
+        switch (animationParams.pattern) {
+            case 'vertical':
+                animateVerticalRotation();
+                break;
+            case 'diagonal':
+                animateDiagonalRotation();
+                break;
+            case 'oscillating':
+                animateOscillatingRotation();
+                break;
+            case 'breathing':
+                animateBreathingEffect();
+                break;
+            case 'combined':
+                animateCombinedEffects();
+                break;
+            case 'horizontal':
+            default:
+                animateHorizontalRotation();
+                break;
         }
         
         // Render de scene met camera
