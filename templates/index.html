@@ -29,19 +29,67 @@
                             <option value="helvetiker">Helvetiker</option>
                             <option value="optimer">Optimer</option>
                             <option value="gentilis">Gentilis</option>
-                            <option value="droid">Droid</option>
+                            <option value="droid">Droid Sans</option>
+                            <option value="opensans">Open Sans</option>
+                            <option value="roboto">Roboto</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label for="color-picker">Kleur:</label>
+                        <label for="color-scheme">Kleurenschema:</label>
+                        <select id="color-scheme" name="colorScheme">
+                            <option value="custom">Aangepast</option>
+                            <option value="blue">Blauw</option>
+                            <option value="red">Rood</option>
+                            <option value="green">Groen</option>
+                            <option value="gold">Goud</option>
+                            <option value="purple">Paars</option>
+                            <option value="orange">Oranje</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="color-picker">Tekstkleur:</label>
                         <input type="color" id="color-picker" name="color" value="#156289">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bevel-color-picker">Randkleur:</label>
+                        <input type="color" id="bevel-color-picker" name="bevelColor" value="#0E4B6E">
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label for="thickness-slider">Dikte: <span id="thickness-value">0.2</span></label>
-                    <input type="range" id="thickness-slider" name="thickness" min="0.1" max="1" step="0.1" value="0.2">
+                    <input type="range" id="thickness-slider" name="thickness" min="0.1" max="1.5" step="0.05" value="0.2">
+                </div>
+                
+                <div class="form-group">
+                    <label for="bevel-enabled">
+                        <input type="checkbox" id="bevel-enabled" name="bevelEnabled" checked>
+                        Afgeronde randen inschakelen
+                    </label>
+                </div>
+                
+                <div id="bevel-options" class="bevel-options">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="bevel-thickness-slider">Randdikte: <span id="bevel-thickness-value">0.03</span></label>
+                            <input type="range" id="bevel-thickness-slider" name="bevelThickness" min="0.01" max="0.1" step="0.01" value="0.03">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bevel-size-slider">Randgrootte: <span id="bevel-size-value">0.02</span></label>
+                            <input type="range" id="bevel-size-slider" name="bevelSize" min="0.01" max="0.1" step="0.01" value="0.02">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bevel-segments-slider">Randsegmenten: <span id="bevel-segments-value">5</span></label>
+                        <input type="range" id="bevel-segments-slider" name="bevelSegments" min="1" max="10" step="1" value="5">
+                    </div>
                 </div>
                 
                 <button type="submit" id="generate-btn">Genereer 3D Text</button>
@@ -55,9 +103,34 @@
 
     <script src="{{ url_for('static', filename='js/3d_renderer.js') }}"></script>
     <script>
-        // Update de diktewaarde wanneer de slider wordt verplaatst
+        // Update de waardes wanneer sliders worden verplaatst
         document.getElementById('thickness-slider').addEventListener('input', function() {
             document.getElementById('thickness-value').textContent = this.value;
+        });
+        
+        document.getElementById('bevel-thickness-slider').addEventListener('input', function() {
+            document.getElementById('bevel-thickness-value').textContent = this.value;
+        });
+        
+        document.getElementById('bevel-size-slider').addEventListener('input', function() {
+            document.getElementById('bevel-size-value').textContent = this.value;
+        });
+        
+        document.getElementById('bevel-segments-slider').addEventListener('input', function() {
+            document.getElementById('bevel-segments-value').textContent = this.value;
+        });
+        
+        // Schakel bevel-opties in/uit wanneer checkbox wordt ge(de)selecteerd
+        document.getElementById('bevel-enabled').addEventListener('change', function() {
+            const bevelOptions = document.getElementById('bevel-options');
+            bevelOptions.style.display = this.checked ? 'block' : 'none';
+        });
+        
+        // Toepassen van kleurenschema's
+        document.getElementById('color-scheme').addEventListener('change', function() {
+            if (this.value !== 'custom') {
+                applyColorScheme(this.value);
+            }
         });
         
         // Converteer de colorpicker HEX waarde naar 0x formaat voor Three.js
@@ -73,7 +146,15 @@
             const font = document.getElementById('font-select').value;
             const colorHex = document.getElementById('color-picker').value;
             const color = hexToThreeColor(colorHex);
+            const bevelColorHex = document.getElementById('bevel-color-picker').value;
+            const bevelColor = hexToThreeColor(bevelColorHex);
             const thickness = parseFloat(document.getElementById('thickness-slider').value);
+            
+            // Bevel opties
+            const bevelEnabled = document.getElementById('bevel-enabled').checked;
+            const bevelThickness = parseFloat(document.getElementById('bevel-thickness-slider').value);
+            const bevelSize = parseFloat(document.getElementById('bevel-size-slider').value);
+            const bevelSegments = parseInt(document.getElementById('bevel-segments-slider').value);
             
             // Verstuur de gegevens naar de server om 3D model data te krijgen
             fetch('/generate', {
@@ -85,7 +166,12 @@
                     text: text,
                     font: font,
                     color: color,
-                    thickness: thickness
+                    bevelColor: bevelColor,
+                    thickness: thickness,
+                    bevelEnabled: bevelEnabled,
+                    bevelThickness: bevelThickness,
+                    bevelSize: bevelSize,
+                    bevelSegments: bevelSegments
                 })
             })
             .then(response => response.json())
