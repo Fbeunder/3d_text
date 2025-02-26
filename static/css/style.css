@@ -29,6 +29,14 @@ h1 {
     color: #156289;
 }
 
+h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #156289;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+
 .input-form {
     margin-bottom: 30px;
     padding: 20px;
@@ -57,15 +65,18 @@ label {
     font-weight: bold;
 }
 
-/* Checkbox label styling */
-label[for="bevel-enabled"] {
+/* Checkbox en radio label styling */
+label[for="bevel-enabled"],
+.checkbox-label,
+.radio-label {
     display: flex;
     align-items: center;
     font-weight: normal;
     cursor: pointer;
 }
 
-input[type="checkbox"] {
+input[type="checkbox"],
+input[type="radio"] {
     margin-right: 8px;
     cursor: pointer;
 }
@@ -124,19 +135,63 @@ button:hover {
 #thickness-value,
 #bevel-thickness-value,
 #bevel-size-value,
-#bevel-segments-value {
+#bevel-segments-value,
+#custom-speed-value {
     display: inline-block;
     min-width: 2.5em;
     text-align: center;
 }
 
-/* Sectie voor bevel-opties */
-.bevel-options {
+/* Sectie voor bevel-opties en animatie-opties */
+.bevel-options,
+.animation-options {
     background: #f0f0f0;
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 15px;
     border: 1px solid #ddd;
+}
+
+/* Animatie opties specifieke styling */
+.animation-options h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #156289;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+.speed-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+.radio-label {
+    background: #e6e6e6;
+    padding: 8px 15px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    flex: 1;
+    text-align: center;
+    min-width: 80px;
+}
+
+.radio-label:hover {
+    background: #d9d9d9;
+}
+
+input[type="radio"]:checked + .radio-label,
+.radio-label input[type="radio"]:checked {
+    background: #156289;
+    color: white;
+}
+
+#custom-speed-container {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #ccc;
 }
 
 /* Kleurenschema selector styling */
@@ -202,9 +257,10 @@ input[type="range"]::-moz-range-thumb {
         padding: 15px;
     }
     
-    .form-row {
+    .form-row,
+    .speed-options {
         flex-direction: column;
-        gap: 15px;
+        gap: 10px;
     }
     
     canvas {
@@ -213,7 +269,8 @@ input[type="range"]::-moz-range-thumb {
     }
     
     /* Kleinere marges op kleine schermen */
-    .bevel-options {
+    .bevel-options,
+    .animation-options {
         padding: 10px;
     }
 }
