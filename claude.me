@@ -30,7 +30,7 @@ De applicatie bestaat uit de volgende modulaire structuur:
 ### `text_to_3d.py`
 **Functionaliteit**: Converteert tekst naar 3D-modellen
 - **Functies**:
-  - `generate_3d_model(text, font, color, bevel_color, thickness, position, bevel_enabled, bevel_thickness, bevel_size, bevel_segments)`: Genereert een 3D-model van de opgegeven tekst
+  - `generate_3d_model(text, font, color, bevel_color, thickness, position, bevel_enabled, bevel_thickness, bevel_size, bevel_segments, rotation_pattern, rotation_speed)`: Genereert een 3D-model van de opgegeven tekst
     - Parameters: 
       - text (str) - De tekst die naar 3D geconverteerd moet worden
       - font (str) - Het lettertype ('helvetiker', 'optimer', 'gentilis', 'droid', 'opensans', 'roboto')
@@ -42,6 +42,8 @@ De applicatie bestaat uit de volgende modulaire structuur:
       - bevel_thickness (float) - Dikte van de afgeronde rand
       - bevel_size (float) - Grootte van de afgeronde rand
       - bevel_segments (int) - Aantal segmenten in de afgeronde rand
+      - rotation_pattern (str) - Het rotatiepatroon ('horizontal', 'vertical', 'diagonal', 'oscillating', 'breathing', 'combined')
+      - rotation_speed (str) - De rotatiesnelheid ('slow', 'normal', 'fast' of een numerieke waarde)
     - Return: 3D-modelgegevens (JSON/dict)
     - Afhankelijkheden: Three.js compatibel formaat
 
@@ -60,7 +62,35 @@ De applicatie bestaat uit de volgende modulaire structuur:
     - Parameters: textData (object) - 3D-modelgegevens
     - Return: None
     - Afhankelijkheden: Three.js
-  - `animateRotation()`: Animeert de rotatie van het 3D-model
+  - `getRotationSpeed()`: Berekent de rotatiesnelheid op basis van de ingestelde snelheid
+    - Parameters: Geen (gebruikt globale animationParams)
+    - Return: Float - de te gebruiken rotatiesnelheid
+    - Afhankelijkheden: Geen
+  - `animateHorizontalRotation()`: Voert horizontale rotatie uit (om Y-as)
+    - Parameters: Geen
+    - Return: None
+    - Afhankelijkheden: Three.js, textMesh
+  - `animateVerticalRotation()`: Voert verticale rotatie uit (om X-as)
+    - Parameters: Geen
+    - Return: None
+    - Afhankelijkheden: Three.js, textMesh
+  - `animateDiagonalRotation()`: Voert diagonale rotatie uit (om X-as en Y-as)
+    - Parameters: Geen
+    - Return: None
+    - Afhankelijkheden: Three.js, textMesh
+  - `animateOscillatingRotation()`: Voert oscillerende rotatie uit (heen en weer)
+    - Parameters: Geen
+    - Return: None
+    - Afhankelijkheden: Three.js, textMesh, animationParams
+  - `animateBreathingEffect()`: Voert ademende animatie uit (schalen)
+    - Parameters: Geen
+    - Return: None
+    - Afhankelijkheden: Three.js, textMesh, animationParams
+  - `animateCombinedEffects()`: Voert gecombineerde animaties uit (rotatie en schaling)
+    - Parameters: Geen
+    - Return: None
+    - Afhankelijkheden: Three.js, textMesh, animationParams
+  - `animateRotation()`: Start de animatieloop met het geselecteerde patroon
     - Parameters: Geen
     - Return: None
     - Afhankelijkheden: Three.js
@@ -75,12 +105,14 @@ De applicatie bestaat uit de volgende modulaire structuur:
 - Inclusief formulier voor tekstinvoer
 - Container voor 3D-weergave
 - UI voor geavanceerde instellingen (lettertype, kleuren, dikte, bevel parameters)
+- UI voor rotatie-instellingen (patroon, snelheid)
 
 ### `static/css/style.css`
 **Functionaliteit**: Styling voor de webinterface
 - Stijlregels voor de gebruikersinterface
 - Responsive design
 - Styling voor geavanceerde UI-elementen en controls
+- Styling voor rotatie-instellingen
 
 ### `requirements.txt`
 **Functionaliteit**: Lijst met Python-afhankelijkheden voor het project
@@ -117,9 +149,13 @@ De applicatie bestaat uit de volgende modulaire structuur:
   - Scene wordt nu direct geïnitialiseerd bij het laden van de pagina
   - Verbeterde responsiviteit van de 3D container
 - README.md met installatie- en gebruiksinstructies
+- Verschillende rotatiepatronen en instelbare snelheden (Issue #4)
+  - Horizontale, verticale, diagonale, oscillerende, ademende en gecombineerde rotaties
+  - Instelbare snelheden (langzaam, normaal, snel, aangepast)
+  - Intuïtieve UI voor rotatie-instellingen
 
 **Open**:
-- Verschillende rotatiepatronen en instelbare snelheden (Issue #4)
+- Geen open issues meer
 
 ## 5. Volgende stappen
 
@@ -127,12 +163,11 @@ De applicatie bestaat uit de volgende modulaire structuur:
 - De basiswerking van de applicatie is volledig geïmplementeerd en alle kritieke bugs zijn opgelost. Er zijn geen must-have features meer die nog geïmplementeerd moeten worden.
 
 ### Nice to Haves:
-1. Verschillende rotatiepatronen en snelheden (Issue #4)
-2. Mogelijkheid om het 3D-model te exporteren
-3. Verschillende achtergrondopties/thema's
-4. Testdekking verbeteren
-5. Betere foutafhandeling
-6. Optimalisatie voor grote tekststrings
-7. Mobile responsive verbeteringen
+1. Mogelijkheid om het 3D-model te exporteren
+2. Verschillende achtergrondopties/thema's
+3. Testdekking verbeteren
+4. Betere foutafhandeling
+5. Optimalisatie voor grote tekststrings
+6. Mobile responsive verbeteringen
 
 Alle must-have functionaliteiten voor de basiswerking van de applicatie zijn nu geïmplementeerd. De bovenstaande nice-to-have punten zijn verbeteringen en uitbreidingen die de applicatie verder kunnen verbeteren, maar zijn niet strikt noodzakelijk voor het functioneren van de kern van de applicatie.
