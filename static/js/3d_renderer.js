@@ -161,10 +161,22 @@ function renderText(textData) {
             return;
         }
         
-        // Verwijder bestaande textMesh als die er is
+        // Verwijder bestaande textMesh als die er is en maak geheugen vrij
         if (textMesh) {
             console.log('Bestaande textMesh verwijderen');
             scene.remove(textMesh);
+
+            // Ruim geometry en materialen netjes op om geheugenlekken te voorkomen
+            if (textMesh.geometry) {
+                textMesh.geometry.dispose();
+            }
+            if (Array.isArray(textMesh.material)) {
+                textMesh.material.forEach(mat => mat.dispose());
+            } else if (textMesh.material) {
+                textMesh.material.dispose();
+            }
+
+            textMesh = null;
         }
         
         // Update de achtergrondkleur van de renderer container om contrast te verbeteren
