@@ -1,97 +1,117 @@
 # Project Stappen - 3D Text Generator
 
-## Must-Have Stappen
+## Uitgevoerde Stappen
 
-### Stap 1: Project Setup en Basis Configuratie ✅
+### ✅ Stap 1: Project Setup en Configuratie (must-have)
 - **Status**: Voltooid
-- **Omschrijving**: Basis project structuur opgezet
-- **Bestanden**: requirements.txt, config.py, utils.py
-- **Uitgevoerde acties**: 
-  - Dependencies gedefinieerd in requirements.txt
-  - Volledig configuratie systeem geïmplementeerd in config.py
-  - Utility functies voor validatie en bestandsoperaties in utils.py
-  - Alle modules gedocumenteerd en getest
+- **Bestanden**: config.py, utils.py, requirements.txt, project_info.txt
+- **Functionaliteit**: Basis configuratie, utility functies, dependency management
+- **Acties**: Geïmplementeerd en getest
 
-### Stap 2: Tekst Processing Module ✅
+### ✅ Stap 2: Text Processing Module (must-have)
 - **Status**: Voltooid
-- **Omschrijving**: Text_processor.py geïmplementeerd voor font handling en tekst parsing
 - **Bestanden**: text_processor.py, tests/test_text_processor.py
-- **Uitgevoerde acties**:
-  - FontLoader klasse voor TTF/OTF font loading met freetype en PIL support
-  - TextProcessor klasse voor text parsing, validatie en layout berekeningen
-  - Character outline extractie functionaliteit
-  - Comprehensive unit tests met >90% coverage
-  - Error handling voor ongeldige input
-  - Integratie met config.py en utils.py modules
+- **Functionaliteit**: Font loading, character outline extractie, text parsing
+- **Acties**: FontLoader en TextProcessor klassen geïmplementeerd met >90% test coverage
 
-### Stap 3: 3D Geometrie Generator
-- **Status**: Te implementeren
-- **Omschrijving**: Implementeer geometry_generator.py voor mesh generatie
-- **Bestanden**: geometry_generator.py, tests/test_geometry_generator.py  
-- **Acties**:
-  - 2D outlines naar 3D mesh conversie
-  - Extrusion algoritme implementeren
-  - Basis bevel effecten
-  - Mesh optimalisatie en validatie
+### ✅ Stap 3: 3D Geometry Generator Module (must-have)
+- **Status**: Voltooid
+- **Bestanden**: geometry_generator.py, tests/test_geometry_generator.py
+- **Functionaliteit**: 2D naar 3D extrusion, mesh generatie, bevel effecten, optimalisatie
+- **Acties**: GeometryGenerator klasse geïmplementeerd met >85% test coverage
 
-### Stap 4: CLI Interface
-- **Status**: Te implementeren
-- **Omschrijving**: Implementeer main.py met command line interface
-- **Bestanden**: main.py, tests/test_main.py
-- **Acties**:
-  - Argument parsing voor text input, font selection, output format
-  - Workflow orchestration tussen alle modules
-  - Error handling en logging
-  - Progress reporting
+## Te Implementeren Stappen
 
-### Stap 5: Export Functionaliteit  
-- **Status**: Te implementeren
-- **Omschrijving**: Implementeer exporter.py voor verschillende 3D formaten
-- **Bestanden**: exporter.py, tests/test_exporter.py
-- **Acties**:
-  - STL export implementeren
-  - OBJ export implementeren
-  - PLY export ondersteuning
-  - Format validatie en optimalisatie
-
-## Nice-to-Have Stappen
-
-### Stap 6: 3D Rendering en Preview
-- **Status**: Nice-to-have
-- **Omschrijving**: Implementeer renderer.py voor 3D visualisatie
+### Stap 4: 3D Renderer Module (must-have)
+- **Omschrijving**: Implementeer 3D rendering en visualisatie functionaliteit
 - **Bestanden**: renderer.py, tests/test_renderer.py
-- **Acties**:
-  - 3D scene setup met matplotlib/mayavi
-  - Interactive preview functionaliteit
-  - Lighting en materials
-  - Camera controls
+- **Functionaliteit**: 
+  - 3D scene setup en camera positioning
+  - Lighting en material properties
+  - Real-time preview functionaliteit
+  - Multiple rendering backends (matplotlib, mayavi)
+- **Afhankelijkheden**: matplotlib, optioneel mayavi
+- **Acceptatiecriteria**:
+  - Renderer klasse kan 3D meshes visualiseren
+  - Configureerbare camera en lighting
+  - Export van rendered images
+  - Unit tests >80% coverage
 
-### Stap 7: Grafische Interface
-- **Status**: Nice-to-have  
-- **Omschrijving**: Implementeer gui.py voor gebruiksvriendelijke interface
+### Stap 5: Export Module (must-have)
+- **Omschrijving**: Implementeer export naar verschillende 3D formaten
+- **Bestanden**: exporter.py, tests/test_exporter.py
+- **Functionaliteit**:
+  - STL export voor 3D printing
+  - OBJ export met materials
+  - PLY export voor point clouds
+  - GLTF export voor web applications
+- **Afhankelijkheden**: trimesh, numpy-stl
+- **Acceptatiecriteria**:
+  - Exporter klasse ondersteunt alle formaten
+  - Validatie van export bestanden
+  - Configureerbare export settings
+  - Unit tests >80% coverage
+
+### Stap 6: Main Application Interface (must-have)
+- **Omschrijving**: Implementeer hoofdapplicatie en CLI interface
+- **Bestanden**: main.py, tests/test_main.py
+- **Functionaliteit**:
+  - Command-line interface met argparse
+  - Workflow orchestration
+  - Error handling en logging
+  - Configuration file support
+- **Afhankelijkheden**: argparse, alle core modules
+- **Acceptatiecriteria**:
+  - CLI kan volledige workflow uitvoeren
+  - Configureerbare parameters
+  - Proper error handling
+  - Help documentatie
+
+### Stap 7: Integration Testing (must-have)
+- **Omschrijving**: End-to-end testing van complete workflow
+- **Bestanden**: tests/test_integration.py
+- **Functionaliteit**:
+  - Complete workflow tests
+  - Performance testing
+  - Error scenario testing
+  - Memory usage validation
+- **Acceptatiecriteria**:
+  - Alle modules werken samen
+  - Performance binnen acceptabele grenzen
+  - Robuuste error handling
+
+### Stap 8: Documentation (must-have)
+- **Omschrijving**: Uitgebreide documentatie en gebruikershandleiding
+- **Bestanden**: README.md, docs/, examples/
+- **Functionaliteit**:
+  - API documentatie
+  - Gebruikershandleiding
+  - Code voorbeelden
+  - Installation guide
+- **Acceptatiecriteria**:
+  - Complete API docs
+  - Werkende voorbeelden
+  - Clear installation instructions
+
+## Nice-to-have Stappen
+
+### Stap 9: GUI Interface (nice-to-have)
+- **Omschrijving**: Grafische gebruikersinterface
 - **Bestanden**: gui.py, tests/test_gui.py
-- **Acties**:
-  - Tkinter/PyQt interface design
-  - Real-time preview integration
-  - Parameter controls en sliders
-  - File browser en export dialogs
+- **Functionaliteit**: Tkinter of PyQt interface voor gebruiksvriendelijkheid
 
-### Stap 8: Geavanceerde Features
-- **Status**: Nice-to-have
-- **Omschrijving**: Uitgebreide styling en effect opties
-- **Bestanden**: effects.py, materials.py
-- **Acties**:
-  - Geavanceerde bevel opties (round, chamfer)
-  - Texture mapping ondersteuning
-  - Animation support voor rotating text
-  - Multi-line text layout
+### Stap 10: Web Interface (nice-to-have)
+- **Omschrijving**: Web-based interface met three.js
+- **Bestanden**: web/, static/, templates/
+- **Functionaliteit**: Browser-based 3D text generation
 
-## Voltooide Modules Samenvatting
-- ✅ **config.py**: Volledig configuratie systeem met environment overrides
-- ✅ **utils.py**: Comprehensive utility functies voor file operations en validatie  
-- ✅ **text_processor.py**: Font loading en text processing met outline extractie
-- ✅ **tests/test_text_processor.py**: Unit tests met hoge coverage
-- ✅ **requirements.txt**: Alle dependencies gedefinieerd
+### Stap 11: Advanced Features (nice-to-have)
+- **Omschrijving**: Geavanceerde features zoals animatie, textures
+- **Functionaliteit**: Text animatie, material properties, advanced lighting
 
-## Volgende Prioriteit
-Implementatie van **geometry_generator.py** voor het converteren van 2D character outlines naar 3D meshes.
+### Stap 12: Performance Optimization (nice-to-have)
+- **Omschrijving**: Performance optimalisaties en parallel processing
+- **Functionaliteit**: Multi-threading, GPU acceleration, memory optimization
+
+## Huidige Prioriteit
+Volgende stap: **Stap 4 - 3D Renderer Module** implementeren voor visualisatie van gegenereerde meshes.
