@@ -1,0 +1,52 @@
+# Project Info - 3D Text Generator
+
+## Projectomschrijving
+Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt verschillende opties voor tekstvisualisatie in 3D-ruimte met export mogelijkheden naar verschillende 3D-formaten.
+
+## Architectuur/Modulestructuur
+
+### Core Modules
+- **text_processor.py** - Tekstverwerking en font handling
+  - Status: Te implementeren
+  - Functionaliteit: Tekst parsing, font loading, character mapping
+  - Afhankelijkheden: PIL/Pillow, freetype-py
+
+- **geometry_generator.py** - 3D geometrie generatie
+  - Status: Te implementeren  
+  - Functionaliteit: Mesh generatie, extrusion, bevel effecten
+  - Afhankelijkheden: numpy, scipy
+
+- **renderer.py** - 3D rendering en visualisatie
+  - Status: Te implementeren
+  - Functionaliteit: 3D scene setup, lighting, camera positioning
+  - Afhankelijkheden: matplotlib/mayavi of three.js
+
+- **exporter.py** - Export naar verschillende formaten
+  - Status: Te implementeren
+  - Functionaliteit: STL, OBJ, PLY export
+  - Afhankelijkheden: trimesh, numpy-stl
+
+### Support Modules
+- **config.py** - Configuratie en instellingen
+  - Status: Te implementeren
+  - Functionaliteit: Default settings, user preferences
+  - Afhankelijkheden: configparser
+
+- **utils.py** - Utility functies
+  - Status: Te implementeren
+  - Functionaliteit: Helper functions, validatie
+  - Afhankelijkheden: Geen
+
+### Interface
+- **main.py** - Hoofdapplicatie entry point
+  - Status: Te implementeren
+  - Functionaliteit: CLI interface, workflow orchestration
+  - Afhankelijkheden: argparse, alle core modules
+
+- **gui.py** - Grafische gebruikersinterface (optioneel)
+  - Status: Nice-to-have
+  - Functionaliteit: Tkinter/PyQt interface
+  - Afhankelijkheden: tkinter of PyQt5
+
+## Huidige Status
+Project in initiële fase - alle modules moeten nog geïmplementeerd worden.
