@@ -486,11 +486,18 @@ class Text3DGenerator:
             
             # Step 5: Export model
             if output_path:
+                # Extract export format from options
+                export_format = options.get('export_format', 'STL')
+                
+                # Filter out export_format from export_options to avoid duplicate argument
+                export_options = {k: v for k, v in options.items() 
+                                if k.startswith('export_') and k != 'export_format'}
+                
                 exported_path = self.export_model(
                     geometry_data,
                     output_path,
-                    options.get('export_format', 'STL'),
-                    **{k: v for k, v in options.items() if k.startswith('export_')}
+                    export_format,
+                    **export_options
                 )
                 results['exported_path'] = exported_path
             
