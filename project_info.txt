@@ -28,13 +28,13 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
 
 ### Support Modules
 - **config.py** - Configuratie en instellingen
-  - Status: Te implementeren
-  - Functionaliteit: Default settings, user preferences
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: Default settings, user preferences, validatie
   - Afhankelijkheden: configparser
 
 - **utils.py** - Utility functies
-  - Status: Te implementeren
-  - Functionaliteit: Helper functions, validatie
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: Helper functions, validatie, bestandsoperaties
   - Afhankelijkheden: Geen
 
 ### Interface
@@ -48,5 +48,12 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Functionaliteit: Tkinter/PyQt interface
   - Afhankelijkheden: tkinter of PyQt5
 
+### Project Setup
+- **requirements.txt** - Python dependencies
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: Alle benodigde packages gedefinieerd
+  - Afhankelijkheden: N/A
+
 ## Huidige Status
-Project in initiële fase - alle modules moeten nog geïmplementeerd worden.
+Project setup voltooid - basis configuratie en utility modules geïmplementeerd.
+Volgende stap: Implementatie van text_processor.py module.
