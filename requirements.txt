@@ -16,6 +16,10 @@ numpy-stl>=2.16.0
 matplotlib>=3.5.0
 # mayavi>=4.8.0  # Optional, for advanced 3D visualization
 
+# GUI interface dependencies
+# tkinter - included in Python standard library (no separate install needed)
+# threading - included in Python standard library
+
 # Configuration and utilities
 configparser>=5.2.0
 
@@ -29,9 +33,18 @@ flake8>=5.0.0
 psutil>=5.8.0  # For memory usage monitoring in performance tests
 
 # Optional dependencies for enhanced functionality
-# PyQt5>=5.15.0  # For GUI interface
+# PyQt5>=5.15.0  # Alternative GUI framework (not used in current implementation)
 # three.js  # For web-based 3D rendering (if using web interface)
 
 # Documentation
 sphinx>=5.0.0
 sphinx-rtd-theme>=1.0.0
+
+# GUI-specific notes:
+# - tkinter is included with Python standard library on most platforms
+# - On some Linux distributions, tkinter may need separate installation:
+#   Ubuntu/Debian: sudo apt-get install python3-tk
+#   CentOS/RHEL: sudo yum install tkinter
+#   Fedora: sudo dnf install python3-tkinter
+# - matplotlib is required for 3D preview functionality in GUI
+# - GUI will gracefully degrade if matplotlib is not available

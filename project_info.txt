@@ -1,7 +1,7 @@
 # Project Info - 3D Text Generator
 
 ## Projectomschrijving
-Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt verschillende opties voor tekstvisualisatie in 3D-ruimte met export mogelijkheden naar verschillende 3D-formaten.
+Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt verschillende opties voor tekstvisualisatie in 3D-ruimte met export mogelijkheden naar verschillende 3D-formaten. De applicatie heeft zowel een command-line interface als een grafische gebruikersinterface.
 
 ## Architectuur/Modulestructuur
 
@@ -47,18 +47,32 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Afhankelijkheden: Geen
   - Features: File operations, JSON handling, validation, timing decorators
 
-### Interface
-- **main.py** - Hoofdapplicatie entry point
+### Interface Modules
+- **main.py** - Hoofdapplicatie entry point (CLI)
   - Status: ✅ Geïmplementeerd
   - Functionaliteit: CLI interface, workflow orchestration, complete 3D text generation pipeline
   - Afhankelijkheden: argparse, alle core modules
   - Classes: Text3DGenerator
   - Features: Comprehensive CLI met argparse, workflow orchestration, configuration overrides, error handling, logging setup, progress reporting, preview functionaliteit, support voor alle export formaten
 
-- **gui.py** - Grafische gebruikersinterface (optioneel)
-  - Status: Nice-to-have
-  - Functionaliteit: Tkinter/PyQt interface
-  - Afhankelijkheden: tkinter of PyQt5
+- **gui.py** - Grafische gebruikersinterface
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: Tkinter-based GUI met embedded 3D preview en alle CLI functionaliteit
+  - Afhankelijkheden: tkinter (standard library), matplotlib, threading, json
+  - Classes: GUIApplication, TextInputPanel, GeometryPanel, ExportPanel, PreviewPanel, ProgressDialog, SettingsManager
+  - Features:
+    - **GUIApplication**: Main window met menu bar, panels, keyboard shortcuts
+    - **TextInputPanel**: Text input, font selection, font size/spacing controls
+    - **GeometryPanel**: 3D geometry parameters (extrusion depth, bevel settings)
+    - **ExportPanel**: Export format selection, scale factor, output directory
+    - **PreviewPanel**: Embedded 3D preview met matplotlib integration
+    - **ProgressDialog**: Background processing feedback met progress bar
+    - **SettingsManager**: Persistent settings tussen sessies (JSON-based)
+    - Threading support voor responsive UI tijdens processing
+    - Cross-platform compatibility (Windows, macOS, Linux)
+    - Real-time input validation en error handling
+    - Settings persistence en user preferences
+    - Help menu met documentation links
 
 ### Testing
 - **tests/test_text_processor.py** - Text processor unit tests
@@ -88,6 +102,22 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Functionaliteit: Comprehensive test coverage voor Text3DGenerator class en CLI interface
   - Coverage: >85% van main module functionaliteit
   - Features: CLI argument parsing tests, workflow orchestration tests, configuration override tests, error handling tests, mock testing voor alle dependencies
+
+- **tests/test_gui.py** - GUI unit tests
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: Comprehensive test coverage voor alle GUI components
+  - Coverage: >80% van gui module functionaliteit
+  - Features:
+    - SettingsManager testing voor configuration persistence
+    - TextInputPanel validation en functionality testing
+    - GeometryPanel parameter validation testing
+    - ExportPanel format en directory handling testing
+    - PreviewPanel mesh display capabilities testing
+    - ProgressDialog functionality testing
+    - Mock GUI interactions en threading testing
+    - Error handling en validation testing
+    - Integration testing met core modules
+    - Cross-platform compatibility testing
 
 - **tests/test_integration.py** - Integration tests
   - Status: ✅ Geïmplementeerd
@@ -147,12 +177,12 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
 ### Project Setup
 - **requirements.txt** - Python dependencies
   - Status: ✅ Geïmplementeerd en bijgewerkt
-  - Functionaliteit: Alle benodigde packages gedefinieerd inclusief 3D processing, rendering, export en testing dependencies
+  - Functionaliteit: Alle benodigde packages gedefinieerd inclusief 3D processing, rendering, export, testing en GUI dependencies
   - Afhankelijkheden: N/A
-  - Updates: psutil toegevoegd voor integration testing memory monitoring
+  - Updates: GUI dependencies toegevoegd (tkinter notes, matplotlib voor 3D preview), psutil voor integration testing memory monitoring
 
 ## Huidige Status
-Complete 3D Text Generator applicatie met uitgebreide documentatie geïmplementeerd:
+Complete 3D Text Generator applicatie met GUI interface en uitgebreide documentatie geïmplementeerd:
 
 ### Core Functionaliteit
 - FontLoader klasse voor TTF/OTF font loading
@@ -163,7 +193,8 @@ Complete 3D Text Generator applicatie met uitgebreide documentatie geïmplemente
 - Light klasse voor lighting system
 - Exporter klasse voor multi-format 3D export (STL/OBJ/PLY/GLTF)
 
-### Main Application Interface
+### User Interfaces
+#### Command-Line Interface (CLI)
 - Text3DGenerator klasse voor workflow orchestration
 - Comprehensive CLI interface met argparse
 - Support voor alle core modules integratie
@@ -172,6 +203,19 @@ Complete 3D Text Generator applicatie met uitgebreide documentatie geïmplemente
 - Progress reporting en verbose modes
 - Preview functionaliteit (interactive en image export)
 - Support voor alle export formaten
+
+#### Graphical User Interface (GUI)
+- GUIApplication main window met menu system
+- TextInputPanel voor text en font configuratie
+- GeometryPanel voor 3D geometry parameters
+- ExportPanel voor export format en opties
+- PreviewPanel met embedded 3D matplotlib viewer
+- ProgressDialog voor background processing feedback
+- SettingsManager voor persistent user preferences
+- Threading support voor responsive UI
+- Cross-platform compatibility (Windows, macOS, Linux)
+- Real-time validation en error handling
+- Help system en documentation integration
 
 ### CLI Features
 - Required text input argument
@@ -183,18 +227,37 @@ Complete 3D Text Generator applicatie met uitgebreide documentatie geïmplemente
 - Comprehensive help documentation
 - Input validation en error handling
 
+### GUI Features
+- Text input field met real-time validation
+- Font selection met browse dialog
+- 3D geometry controls met parameter updates
+- Embedded 3D preview met camera controls (rotate, zoom, pan)
+- Export format selection met format-specific opties
+- Progress feedback tijdens 3D generation
+- Error handling met user-friendly error dialogs
+- Settings persistence tussen sessies
+- Help menu met documentation links
+- Responsive layout voor verschillende schermgroottes
+- Integration met alle CLI functionaliteit
+- Background threading voor responsive UI
+
 ### Technical Implementation
 - Freetype en PIL support voor outline extractie
 - Trimesh en scipy support voor 3D operaties
 - Matplotlib backend voor 3D rendering (mayavi optioneel)
+- Tkinter framework voor cross-platform GUI (standard library)
+- Threading support voor background processing
+- JSON-based settings persistence
 - Comprehensive unit tests (>80% coverage voor alle modules)
 - Comprehensive integration tests (>85% coverage van integration scenarios)
+- GUI unit tests (>80% coverage van GUI components)
 - Performance en memory usage validation
 - Updated configuration en utility modules
 - Updated dependencies in requirements.txt
 
 ### Testing Infrastructure
 - Unit tests voor alle core modules
+- GUI unit tests voor alle GUI components
 - Integration tests voor complete workflow
 - Performance testing met time/memory limits
 - Error scenario testing
@@ -202,7 +265,9 @@ Complete 3D Text Generator applicatie met uitgebreide documentatie geïmplemente
 - Configuration override testing
 - Preview functionality testing
 - CLI integration testing
+- GUI interaction testing
 - Mock-based testing voor external dependencies
+- Cross-platform compatibility testing
 - Deterministic en reproduceerbare tests
 
 ### Documentation Infrastructure
@@ -226,4 +291,13 @@ Complete 3D Text Generator applicatie met uitgebreide documentatie geïmplemente
 6. Error handling tussen alle stappen
 7. Progress reporting en statistics
 
-De applicatie is nu volledig functioneel en gedocumenteerd, klaar voor productie gebruik via de command-line interface, met comprehensive testing infrastructure voor kwaliteitsborging en uitgebreide documentatie voor gebruikers en developers.
+### User Experience
+- **CLI Interface**: Voor automation, scripting, power users
+- **GUI Interface**: Voor gebruiksvriendelijke interactie met real-time preview
+- Cross-platform compatibility (Windows, macOS, Linux)
+- Comprehensive error handling en user feedback
+- Settings persistence en user preferences
+- Help system en documentation integration
+- Real-time validation en immediate feedback
+
+De applicatie is nu volledig functioneel en gedocumenteerd, klaar voor productie gebruik via zowel command-line als grafische interface, met comprehensive testing infrastructure voor kwaliteitsborging en uitgebreide documentatie voor gebruikers en developers. Beide interfaces bieden volledige toegang tot alle functionaliteit en zijn volledig getest en gedocumenteerd.
