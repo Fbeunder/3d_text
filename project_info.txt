@@ -21,9 +21,11 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Features: 2D naar 3D extrusion, bevel effecten, mesh validatie, normale berekening
 
 - **renderer.py** - 3D rendering en visualisatie
-  - Status: Te implementeren
-  - Functionaliteit: 3D scene setup, lighting, camera positioning
-  - Afhankelijkheden: matplotlib/mayavi of three.js
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: 3D scene setup, camera positioning, lighting system, mesh rendering
+  - Afhankelijkheden: matplotlib, mayavi (optioneel), numpy
+  - Classes: Renderer, Camera, Light
+  - Features: Multiple backends (matplotlib/mayavi), wireframe/solid/shaded modes, interactive preview, image export, camera controls, lighting system
 
 - **exporter.py** - Export naar verschillende formaten
   - Status: Te implementeren
@@ -35,7 +37,7 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Status: ✅ Geïmplementeerd en uitgebreid
   - Functionaliteit: Default settings, user preferences, validatie, environment overrides
   - Afhankelijkheden: configparser
-  - Features: Font/3D/export configuratie, directory management, validation
+  - Features: Font/3D/export/rendering configuratie, directory management, validation
 
 - **utils.py** - Utility functies
   - Status: ✅ Geïmplementeerd en uitgebreid
@@ -65,21 +67,31 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Functionaliteit: Comprehensive test coverage voor GeometryGenerator
   - Coverage: >85% van geometry_generator module functionaliteit
 
+- **tests/test_renderer.py** - Renderer unit tests
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: Comprehensive test coverage voor Renderer, Camera en Light classes
+  - Coverage: >80% van renderer module functionaliteit
+  - Features: Mock testing voor matplotlib, edge case handling, error validation
+
 ### Project Setup
 - **requirements.txt** - Python dependencies
   - Status: ✅ Geïmplementeerd en bijgewerkt
-  - Functionaliteit: Alle benodigde packages gedefinieerd inclusief 3D processing dependencies
+  - Functionaliteit: Alle benodigde packages gedefinieerd inclusief 3D processing en rendering dependencies
   - Afhankelijkheden: N/A
 
 ## Huidige Status
-Text processing en geometry generation modules volledig geïmplementeerd met:
+Text processing, geometry generation en 3D rendering modules volledig geïmplementeerd met:
 - FontLoader klasse voor TTF/OTF font loading
 - TextProcessor klasse voor text parsing en layout
 - GeometryGenerator klasse voor 3D mesh generatie
+- Renderer klasse voor 3D visualisatie en rendering
+- Camera klasse voor view management
+- Light klasse voor lighting system
 - Freetype en PIL support voor outline extractie
 - Trimesh en scipy support voor 3D operaties
-- Comprehensive unit tests (>85% coverage)
+- Matplotlib backend voor 3D rendering (mayavi optioneel)
+- Comprehensive unit tests (>80% coverage voor alle modules)
 - Updated configuration en utility modules
 - Updated dependencies in requirements.txt
 
-Volgende stap: Implementatie van renderer.py module voor 3D visualisatie.
+Volgende stap: Implementatie van exporter.py module voor 3D format export.
