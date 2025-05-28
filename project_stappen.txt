@@ -20,22 +20,21 @@
 - **Functionaliteit**: 2D naar 3D extrusion, mesh generatie, bevel effecten, optimalisatie
 - **Acties**: GeometryGenerator klasse geïmplementeerd met >85% test coverage
 
-## Te Implementeren Stappen
-
-### Stap 4: 3D Renderer Module (must-have)
-- **Omschrijving**: Implementeer 3D rendering en visualisatie functionaliteit
+### ✅ Stap 4: 3D Renderer Module (must-have)
+- **Status**: Voltooid
 - **Bestanden**: renderer.py, tests/test_renderer.py
 - **Functionaliteit**: 
   - 3D scene setup en camera positioning
   - Lighting en material properties
   - Real-time preview functionaliteit
   - Multiple rendering backends (matplotlib, mayavi)
+  - Wireframe, solid en shaded rendering modes
+  - Interactive camera controls (orbit, zoom)
+  - Image export capabilities (PNG/JPG)
 - **Afhankelijkheden**: matplotlib, optioneel mayavi
-- **Acceptatiecriteria**:
-  - Renderer klasse kan 3D meshes visualiseren
-  - Configureerbare camera en lighting
-  - Export van rendered images
-  - Unit tests >80% coverage
+- **Acties**: Renderer, Camera en Light klassen geïmplementeerd met >80% test coverage
+
+## Te Implementeren Stappen
 
 ### Stap 5: Export Module (must-have)
 - **Omschrijving**: Implementeer export naar verschillende 3D formaten
@@ -114,4 +113,4 @@
 - **Functionaliteit**: Multi-threading, GPU acceleration, memory optimization
 
 ## Huidige Prioriteit
-Volgende stap: **Stap 4 - 3D Renderer Module** implementeren voor visualisatie van gegenereerde meshes.
+Volgende stap: **Stap 5 - Export Module** implementeren voor export naar verschillende 3D formaten (STL, OBJ, PLY, GLTF).
