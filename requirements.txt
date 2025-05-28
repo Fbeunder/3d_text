@@ -25,6 +25,9 @@ pytest-cov>=4.0.0
 black>=22.0.0
 flake8>=5.0.0
 
+# Integration testing dependencies
+psutil>=5.8.0  # For memory usage monitoring in performance tests
+
 # Optional dependencies for enhanced functionality
 # PyQt5>=5.15.0  # For GUI interface
 # three.js  # For web-based 3D rendering (if using web interface)

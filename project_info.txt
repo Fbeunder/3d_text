@@ -89,11 +89,20 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Coverage: >85% van main module functionaliteit
   - Features: CLI argument parsing tests, workflow orchestration tests, configuration override tests, error handling tests, mock testing voor alle dependencies
 
+- **tests/test_integration.py** - Integration tests
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: End-to-end testing van complete 3D text generation workflow
+  - Coverage: >85% van integration scenarios
+  - Features: Complete workflow testing, different fonts/formats testing, performance validation, memory usage monitoring, error scenario testing, special characters/unicode support, configuration override testing, preview functionality testing, CLI integration testing
+  - Dependencies: psutil voor memory monitoring, unittest.mock voor comprehensive mocking
+  - Test Classes: IntegrationTestBase, TestCompleteWorkflow, TestWorkflowWithDifferentFonts, TestWorkflowWithDifferentExportFormats, TestWorkflowPerformance, TestErrorScenarios, TestSpecialCharacters, TestConfigurationOverrides, TestPreviewFunctionality, TestMainApplicationIntegration
+
 ### Project Setup
 - **requirements.txt** - Python dependencies
   - Status: ✅ Geïmplementeerd en bijgewerkt
-  - Functionaliteit: Alle benodigde packages gedefinieerd inclusief 3D processing, rendering en export dependencies
+  - Functionaliteit: Alle benodigde packages gedefinieerd inclusief 3D processing, rendering, export en testing dependencies
   - Afhankelijkheden: N/A
+  - Updates: psutil toegevoegd voor integration testing memory monitoring
 
 ## Huidige Status
 Volledige 3D Text Generator applicatie geïmplementeerd met:
@@ -132,8 +141,22 @@ Volledige 3D Text Generator applicatie geïmplementeerd met:
 - Trimesh en scipy support voor 3D operaties
 - Matplotlib backend voor 3D rendering (mayavi optioneel)
 - Comprehensive unit tests (>80% coverage voor alle modules)
+- Comprehensive integration tests (>85% coverage van integration scenarios)
+- Performance en memory usage validation
 - Updated configuration en utility modules
 - Updated dependencies in requirements.txt
+
+### Testing Infrastructure
+- Unit tests voor alle core modules
+- Integration tests voor complete workflow
+- Performance testing met time/memory limits
+- Error scenario testing
+- Unicode en special character testing
+- Configuration override testing
+- Preview functionality testing
+- CLI integration testing
+- Mock-based testing voor external dependencies
+- Deterministic en reproduceerbare tests
 
 ### Workflow Orchestration
 1. Font loading met fallback naar default fonts
@@ -144,4 +167,4 @@ Volledige 3D Text Generator applicatie geïmplementeerd met:
 6. Error handling tussen alle stappen
 7. Progress reporting en statistics
 
-De applicatie is nu volledig functioneel en klaar voor gebruik via de command-line interface.
+De applicatie is nu volledig functioneel en klaar voor gebruik via de command-line interface, met comprehensive testing infrastructure voor kwaliteitsborging.
