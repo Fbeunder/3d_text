@@ -49,9 +49,11 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
 
 ### Interface
 - **main.py** - Hoofdapplicatie entry point
-  - Status: Te implementeren
-  - Functionaliteit: CLI interface, workflow orchestration
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: CLI interface, workflow orchestration, complete 3D text generation pipeline
   - Afhankelijkheden: argparse, alle core modules
+  - Classes: Text3DGenerator
+  - Features: Comprehensive CLI met argparse, workflow orchestration, configuration overrides, error handling, logging setup, progress reporting, preview functionaliteit, support voor alle export formaten
 
 - **gui.py** - Grafische gebruikersinterface (optioneel)
   - Status: Nice-to-have
@@ -81,6 +83,12 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Coverage: >80% van exporter module functionaliteit
   - Features: Mock testing voor trimesh/numpy-stl, format validation, error handling, file integrity checks
 
+- **tests/test_main.py** - Main application unit tests
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: Comprehensive test coverage voor Text3DGenerator class en CLI interface
+  - Coverage: >85% van main module functionaliteit
+  - Features: CLI argument parsing tests, workflow orchestration tests, configuration override tests, error handling tests, mock testing voor alle dependencies
+
 ### Project Setup
 - **requirements.txt** - Python dependencies
   - Status: ✅ Geïmplementeerd en bijgewerkt
@@ -88,7 +96,9 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Afhankelijkheden: N/A
 
 ## Huidige Status
-Alle core modules volledig geïmplementeerd met:
+Volledige 3D Text Generator applicatie geïmplementeerd met:
+
+### Core Functionaliteit
 - FontLoader klasse voor TTF/OTF font loading
 - TextProcessor klasse voor text parsing en layout
 - GeometryGenerator klasse voor 3D mesh generatie
@@ -96,6 +106,28 @@ Alle core modules volledig geïmplementeerd met:
 - Camera klasse voor view management
 - Light klasse voor lighting system
 - Exporter klasse voor multi-format 3D export (STL/OBJ/PLY/GLTF)
+
+### Main Application Interface
+- Text3DGenerator klasse voor workflow orchestration
+- Comprehensive CLI interface met argparse
+- Support voor alle core modules integratie
+- Configuration overrides via command-line parameters
+- Error handling en logging configuratie
+- Progress reporting en verbose modes
+- Preview functionaliteit (interactive en image export)
+- Support voor alle export formaten
+
+### CLI Features
+- Required text input argument
+- Font options (path, size, character spacing)
+- 3D geometry options (extrusion depth, bevel depth/resolution)
+- Export options (format, scale, output directory)
+- Preview options (interactive preview, save preview image)
+- Output options (verbose, quiet, logging, statistics)
+- Comprehensive help documentation
+- Input validation en error handling
+
+### Technical Implementation
 - Freetype en PIL support voor outline extractie
 - Trimesh en scipy support voor 3D operaties
 - Matplotlib backend voor 3D rendering (mayavi optioneel)
@@ -103,4 +135,13 @@ Alle core modules volledig geïmplementeerd met:
 - Updated configuration en utility modules
 - Updated dependencies in requirements.txt
 
-Volgende stap: Implementatie van main.py voor CLI interface en workflow orchestration.
+### Workflow Orchestration
+1. Font loading met fallback naar default fonts
+2. Text processing en layout calculation
+3. 3D geometry generation met extrusion en bevel
+4. Optional preview rendering (interactive/image)
+5. Model export naar gewenst formaat
+6. Error handling tussen alle stappen
+7. Progress reporting en statistics
+
+De applicatie is nu volledig functioneel en klaar voor gebruik via de command-line interface.
