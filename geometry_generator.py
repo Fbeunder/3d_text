@@ -25,7 +25,7 @@ except ImportError:
     logging.warning("scipy not available. Advanced mesh operations will be limited.")
 
 from config import Config
-from utils import validate_numeric_input
+from utils import is_valid_number
 
 
 class GeometryError(Exception):
@@ -66,7 +66,7 @@ class GeometryGenerator:
         if not outline or len(outline) < 3:
             raise GeometryError("Outline must contain at least 3 points")
         
-        if not validate_numeric_input(depth) or depth <= 0:
+        if not is_valid_number(depth, min_value=0.001):
             raise GeometryError("Depth must be a positive number")
         
         try:
@@ -160,10 +160,10 @@ class GeometryGenerator:
         if not outlines:
             raise GeometryError("No outlines provided")
         
-        if not validate_numeric_input(depth) or depth <= 0:
+        if not is_valid_number(depth, min_value=0.001):
             raise GeometryError("Depth must be a positive number")
         
-        if not validate_numeric_input(bevel_depth) or bevel_depth < 0:
+        if not is_valid_number(bevel_depth, min_value=0.0):
             raise GeometryError("Bevel depth must be non-negative")
         
         try:
