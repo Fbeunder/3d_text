@@ -1,1 +1,34 @@
-32ed75e6c0a84eab5194328dd3e0f64be5c044c7
+# 3D Text Generator Dependencies
+
+# Core dependencies
+numpy>=1.21.0
+scipy>=1.7.0
+
+# Font processing and text handling
+freetype-py>=2.3.0
+Pillow>=9.0.0
+
+# 3D geometry and mesh processing
+trimesh>=3.15.0
+numpy-stl>=2.16.0
+
+# Rendering and visualization
+matplotlib>=3.5.0
+# mayavi>=4.8.0  # Optional, for advanced 3D visualization
+
+# Configuration and utilities
+configparser>=5.2.0
+
+# Development and testing dependencies
+pytest>=7.0.0
+pytest-cov>=4.0.0
+black>=22.0.0
+flake8>=5.0.0
+
+# Optional dependencies for enhanced functionality
+# PyQt5>=5.15.0  # For GUI interface
+# three.js  # For web-based 3D rendering (if using web interface)
+
+# Documentation
+sphinx>=5.0.0
+sphinx-rtd-theme>=1.0.0
