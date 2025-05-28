@@ -28,9 +28,11 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Features: Multiple backends (matplotlib/mayavi), wireframe/solid/shaded modes, interactive preview, image export, camera controls, lighting system
 
 - **exporter.py** - Export naar verschillende formaten
-  - Status: Te implementeren
-  - Functionaliteit: STL, OBJ, PLY export
-  - Afhankelijkheden: trimesh, numpy-stl
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: STL, OBJ, PLY, GLTF export met validatie en configuratie
+  - Afhankelijkheden: trimesh, numpy-stl, json
+  - Classes: Exporter
+  - Features: Multi-format export (STL/OBJ/PLY/GLTF), material support voor OBJ, ASCII/binary modes, scaling, validation, error handling, manual fallback implementations
 
 ### Support Modules
 - **config.py** - Configuratie en instellingen
@@ -73,20 +75,27 @@ Een Python-applicatie die 2D tekst omzet naar 3D-modellen. De applicatie biedt v
   - Coverage: >80% van renderer module functionaliteit
   - Features: Mock testing voor matplotlib, edge case handling, error validation
 
+- **tests/test_exporter.py** - Exporter unit tests
+  - Status: ✅ Geïmplementeerd
+  - Functionaliteit: Comprehensive test coverage voor Exporter class en alle export formaten
+  - Coverage: >80% van exporter module functionaliteit
+  - Features: Mock testing voor trimesh/numpy-stl, format validation, error handling, file integrity checks
+
 ### Project Setup
 - **requirements.txt** - Python dependencies
   - Status: ✅ Geïmplementeerd en bijgewerkt
-  - Functionaliteit: Alle benodigde packages gedefinieerd inclusief 3D processing en rendering dependencies
+  - Functionaliteit: Alle benodigde packages gedefinieerd inclusief 3D processing, rendering en export dependencies
   - Afhankelijkheden: N/A
 
 ## Huidige Status
-Text processing, geometry generation en 3D rendering modules volledig geïmplementeerd met:
+Alle core modules volledig geïmplementeerd met:
 - FontLoader klasse voor TTF/OTF font loading
 - TextProcessor klasse voor text parsing en layout
 - GeometryGenerator klasse voor 3D mesh generatie
 - Renderer klasse voor 3D visualisatie en rendering
 - Camera klasse voor view management
 - Light klasse voor lighting system
+- Exporter klasse voor multi-format 3D export (STL/OBJ/PLY/GLTF)
 - Freetype en PIL support voor outline extractie
 - Trimesh en scipy support voor 3D operaties
 - Matplotlib backend voor 3D rendering (mayavi optioneel)
@@ -94,4 +103,4 @@ Text processing, geometry generation en 3D rendering modules volledig geïmpleme
 - Updated configuration en utility modules
 - Updated dependencies in requirements.txt
 
-Volgende stap: Implementatie van exporter.py module voor 3D format export.
+Volgende stap: Implementatie van main.py voor CLI interface en workflow orchestration.

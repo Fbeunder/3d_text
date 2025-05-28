@@ -34,22 +34,23 @@
 - **Afhankelijkheden**: matplotlib, optioneel mayavi
 - **Acties**: Renderer, Camera en Light klassen geïmplementeerd met >80% test coverage
 
-## Te Implementeren Stappen
-
-### Stap 5: Export Module (must-have)
-- **Omschrijving**: Implementeer export naar verschillende 3D formaten
+### ✅ Stap 5: Export Module (must-have)
+- **Status**: Voltooid
 - **Bestanden**: exporter.py, tests/test_exporter.py
 - **Functionaliteit**:
-  - STL export voor 3D printing
-  - OBJ export met materials
-  - PLY export voor point clouds
-  - GLTF export voor web applications
-- **Afhankelijkheden**: trimesh, numpy-stl
-- **Acceptatiecriteria**:
-  - Exporter klasse ondersteunt alle formaten
-  - Validatie van export bestanden
-  - Configureerbare export settings
-  - Unit tests >80% coverage
+  - STL export voor 3D printing (ASCII/binary modes)
+  - OBJ export met materials en MTL files
+  - PLY export voor point clouds (ASCII/binary, color support)
+  - GLTF export voor web applications (JSON/binary GLB)
+  - Mesh validation en error handling
+  - Configureerbare export settings via config.py
+  - File integrity validation
+  - Scaling en format conversion
+  - Manual fallback implementations zonder externe libraries
+- **Afhankelijkheden**: trimesh, numpy-stl (met fallback opties)
+- **Acties**: Exporter klasse geïmplementeerd met >80% test coverage, alle acceptatiecriteria behaald
+
+## Te Implementeren Stappen
 
 ### Stap 6: Main Application Interface (must-have)
 - **Omschrijving**: Implementeer hoofdapplicatie en CLI interface
@@ -113,4 +114,4 @@
 - **Functionaliteit**: Multi-threading, GPU acceleration, memory optimization
 
 ## Huidige Prioriteit
-Volgende stap: **Stap 5 - Export Module** implementeren voor export naar verschillende 3D formaten (STL, OBJ, PLY, GLTF).
+Volgende stap: **Stap 6 - Main Application Interface** implementeren voor CLI interface en workflow orchestration.
