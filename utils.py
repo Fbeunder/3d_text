@@ -482,6 +482,51 @@ def is_valid_string(value: Any, min_length: int = 0, max_length: int = None) -> 
     return True
 
 
+def validate_numeric_input(value: Any, min_value: float = None, max_value: float = None) -> bool:
+    """
+    Validate numeric input values.
+    
+    This function validates that a value is numeric and optionally within specified bounds.
+    Used by renderer and other modules for parameter validation.
+    
+    Args:
+        value: Value to validate
+        min_value: Optional minimum bound (inclusive)
+        max_value: Optional maximum bound (inclusive)
+        
+    Returns:
+        bool: True if value is valid numeric input
+        
+    Examples:
+        >>> validate_numeric_input(5.0)
+        True
+        >>> validate_numeric_input("10", 0, 100)
+        True
+        >>> validate_numeric_input(-5, 0, 100)
+        False
+        >>> validate_numeric_input("not_a_number")
+        False
+    """
+    try:
+        # Try to convert to float
+        num_value = float(value)
+        
+        # Check for NaN or infinity
+        if not (num_value == num_value and abs(num_value) != float('inf')):
+            return False
+        
+        # Check bounds if specified
+        if min_value is not None and num_value < min_value:
+            return False
+        if max_value is not None and num_value > max_value:
+            return False
+        
+        return True
+        
+    except (ValueError, TypeError, OverflowError):
+        return False
+
+
 if __name__ == "__main__":
     # Test utility functions
     print("Testing utility functions...")
@@ -498,6 +543,24 @@ if __name__ == "__main__":
     
     file_size = get_file_size(test_file)
     print(f"File size: {format_file_size(file_size)}")
+    
+    # Test validate_numeric_input
+    print("\nTesting validate_numeric_input:")
+    test_cases = [
+        (5.0, None, None, True),
+        ("10", 0, 100, True),
+        (-5, 0, 100, False),
+        ("not_a_number", None, None, False),
+        (float('inf'), None, None, False),
+        (float('nan'), None, None, False),
+        (50, 0, 100, True),
+        (150, 0, 100, False)
+    ]
+    
+    for value, min_val, max_val, expected in test_cases:
+        result = validate_numeric_input(value, min_val, max_val)
+        status = "✓" if result == expected else "✗"
+        print(f"  {status} validate_numeric_input({value}, {min_val}, {max_val}) = {result}")
     
     # Cleanup
     test_file.unlink()
