@@ -1,0 +1,77 @@
+# Project Stappen - 3D Text Generator
+
+## Must-Have Stappen
+
+### Stap 1: Project Setup en Basis Configuratie
+- **Status**: Te implementeren
+- **Omschrijving**: Basis project structuur opzetten
+- **Bestanden**: requirements.txt, config.py, utils.py
+- **Acties**: 
+  - Dependencies definiëren
+  - Basis configuratie systeem
+  - Utility functies voor validatie
+
+### Stap 2: Tekst Processing Module
+- **Status**: Te implementeren  
+- **Omschrijving**: Implementeer text_processor.py voor font handling en tekst parsing
+- **Bestanden**: text_processor.py, tests/test_text_processor.py
+- **Acties**:
+  - Font loading functionaliteit
+  - Tekst naar character outlines conversie
+  - Character spacing en layout berekeningen
+
+### Stap 3: 3D Geometrie Generator
+- **Status**: Te implementeren
+- **Omschrijving**: Implementeer geometry_generator.py voor mesh generatie
+- **Bestanden**: geometry_generator.py, tests/test_geometry_generator.py  
+- **Acties**:
+  - 2D outlines naar 3D mesh conversie
+  - Extrusion algoritme implementeren
+  - Basis bevel effecten
+
+### Stap 4: CLI Interface
+- **Status**: Te implementeren
+- **Omschrijving**: Implementeer main.py met command line interface
+- **Bestanden**: main.py, tests/test_main.py
+- **Acties**:
+  - Argument parsing
+  - Workflow orchestration
+  - Error handling en logging
+
+### Stap 5: Export Functionaliteit  
+- **Status**: Te implementeren
+- **Omschrijving**: Implementeer exporter.py voor verschillende 3D formaten
+- **Bestanden**: exporter.py, tests/test_exporter.py
+- **Acties**:
+  - STL export implementeren
+  - OBJ export implementeren
+  - Format validatie
+
+## Nice-to-Have Stappen
+
+### Stap 6: 3D Rendering en Preview
+- **Status**: Nice-to-have
+- **Omschrijving**: Implementeer renderer.py voor 3D visualisatie
+- **Bestanden**: renderer.py, tests/test_renderer.py
+- **Acties**:
+  - 3D scene setup
+  - Interactive preview
+  - Lighting en materials
+
+### Stap 7: Grafische Interface
+- **Status**: Nice-to-have  
+- **Omschrijving**: Implementeer gui.py voor gebruiksvriendelijke interface
+- **Bestanden**: gui.py, tests/test_gui.py
+- **Acties**:
+  - Tkinter/PyQt interface
+  - Real-time preview
+  - Parameter controls
+
+### Stap 8: Geavanceerde Features
+- **Status**: Nice-to-have
+- **Omschrijving**: Uitgebreide styling en effect opties
+- **Bestanden**: effects.py, materials.py
+- **Acties**:
+  - Geavanceerde bevel opties
+  - Texture mapping
+  - Animation support
